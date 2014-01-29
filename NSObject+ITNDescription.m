@@ -10,6 +10,7 @@
 @import Foundation.NSArray;
 @import Foundation.NSKeyValueCoding;
 @import ObjectiveC.runtime;
+@import CoreFoundation.CFNumber;
 #import <stdlib.h>
 #import <string.h>
 #import "NSObject+ITNDescription.h"
@@ -125,5 +126,103 @@
 
 
 @end
+
+
+
+
+
+@implementation NSString (ITNDescription)
+
+- (NSString *)itn_descriptionWithIndentation:(NSUInteger)indent depth:(NSUInteger)depth {
+    return [NSString stringWithFormat:@"“%@”", self];
+}
+
+
+@end
+
+
+
+
+
+@implementation NSNumber (ITNDescription)
+
+
+- (NSString *)itn_descriptionWithIndentation:(NSUInteger)indent depth:(NSUInteger)depth {
+    if (self == (id)kCFBooleanTrue
+        || self == (id)kCFBooleanFalse) {
+        return ([self boolValue]? @"Yes" : @"No");
+    }
+    else return [self description];
+}
+
+
+@end
+
+
+
+
+
+@implementation NSArray (ITNDescription)
+
+
+- (NSString *)itn_descriptionWithIndentation:(NSUInteger)indent depth:(NSUInteger)depth {
+    NSMutableString *d = [NSMutableString stringWithFormat:@"%lu object%@", self.count, (self.count == 1? @"" : @"s")];
+    if (depth == 0 || self.count == 0) return d; // Short description.
+    
+    [d appendString:@" (\n"];
+    
+    for (id value in self) {
+        for (NSUInteger i = 0; i < indent + ITN_INDENT; i++) [d appendString:@" "];
+        
+        NSString *subdescription = [value itn_descriptionWithIndentation:(indent + ITN_INDENT) depth:depth - 1];
+        if ( ! subdescription.length) {
+            subdescription = @"(no description)";
+        }
+        [d appendFormat:@"%@,\n", subdescription];
+    }
+    for (NSUInteger i = 0; i < indent; i++) [d appendString:@" "];
+    [d appendString:@")"];
+    return d;
+}
+
+
+@end
+
+
+
+
+
+@implementation NSDictionary (ITNDescription)
+
+
+- (NSString *)itn_descriptionWithIndentation:(NSUInteger)indent depth:(NSUInteger)depth {
+    NSMutableString *d = [NSMutableString stringWithFormat:@"%lu pair%@", self.count, (self.count == 1? @"" : @"s")];
+    if (depth == 0 || self.count == 0) return d; // Short description.
+    
+    [d appendString:@" {\n"];
+    
+    for (id key in self) {
+        for (NSUInteger i = 0; i < indent + ITN_INDENT; i++) [d appendString:@" "];
+        
+        NSString *keyDescription = [key itn_descriptionWithIndentation:(indent + ITN_INDENT) depth:0];
+        if ( ! keyDescription.length) {
+            keyDescription = @"(no description)";
+        }
+        id value = [self objectForKey:key];
+        NSString *valueDescription = [value itn_descriptionWithIndentation:0 depth:(depth - 1)];
+        if ( ! valueDescription.length) {
+            valueDescription = @"(no description)";
+        }
+        [d appendFormat:@"%@ = %@,\n", keyDescription, valueDescription];
+    }
+    for (NSUInteger i = 0; i < indent; i++) [d appendString:@" "];
+    [d appendString:@"}"];
+    return d;
+}
+
+
+@end
+
+
 
 
