@@ -5,7 +5,7 @@ A category on `NSObject`, that automatically generates debugging description.
 An example at the beginning. Printing instance of `MYSomething` class that has no special code for description:
 
 ```
-po [something itn_longDescription];
+po [something itn_longDescription]
 ```
 
 ```
@@ -20,7 +20,7 @@ po [something itn_longDescription];
     _isActive = No,
     _thatThing = <MYThing: 0x10923da50> {
         _something = <MYSomething: 0x10923d4b0>,
-        _member = <MYPerson: 0x109205fc0>,
+        _member = <MYSomeone: 0x109205fc0>,
         _isThere = Yes,
         _isBusy = No,
     },
@@ -50,6 +50,6 @@ po [something itn_longDescription];
 
 ---
 
-**ITN** stands for **I**n**T**er**N**als :)  
+**ITN** stands for InTerNals :)  
 Licensed under The MIT License  
 Copyright © 2014 Martin Kiss
