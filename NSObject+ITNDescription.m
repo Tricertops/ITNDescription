@@ -166,7 +166,7 @@
 
 
 - (NSString *)itn_descriptionWithIndentation:(NSUInteger)indent depth:(NSUInteger)depth {
-    NSMutableString *d = [NSMutableString stringWithFormat:@"%lu object%@", self.count, (self.count == 1? @"" : @"s")];
+    NSMutableString *d = [NSMutableString stringWithFormat:@"%lu object%@", (unsigned long)self.count, (self.count == 1? @"" : @"s")];
     if (depth == 0 || self.count == 0) return d; // Short description.
     
     [d appendString:@" (\n"];
@@ -196,7 +196,7 @@
 
 
 - (NSString *)itn_descriptionWithIndentation:(NSUInteger)indent depth:(NSUInteger)depth {
-    NSMutableString *d = [NSMutableString stringWithFormat:@"%lu pair%@", self.count, (self.count == 1? @"" : @"s")];
+    NSMutableString *d = [NSMutableString stringWithFormat:@"%lu pair%@", (unsigned long)self.count, (self.count == 1? @"" : @"s")];
     if (depth == 0 || self.count == 0) return d; // Short description.
     
     [d appendString:@" {\n"];
