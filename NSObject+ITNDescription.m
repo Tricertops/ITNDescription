@@ -89,8 +89,6 @@
                     subdescription = @"(no description)";
                 }
                 [d appendFormat:@"%s = %@,\n", ivar, subdescription];
-                
-                //TODO: Special for NSString, NSNumber, NSArray, NSDictionary
             }
             free(ivar);
         }
