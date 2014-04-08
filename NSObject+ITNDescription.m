@@ -212,7 +212,7 @@
             keyDescription = @"(no description)";
         }
         id value = [self objectForKey:key];
-        NSString *valueDescription = [value itn_descriptionWithIndentation:0 depth:(depth - 1)];
+        NSString *valueDescription = [value itn_descriptionWithIndentation:(indent + ITN_INDENT) depth:(depth - 1)];
         if ( ! valueDescription.length) {
             valueDescription = @"(no description)";
         }
