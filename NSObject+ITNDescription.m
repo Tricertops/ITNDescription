@@ -40,6 +40,11 @@
 }
 
 
+- (NSString *)itn {
+    return [self itn_longDescription];
+}
+
+
 - (NSString *)itn_descriptionWithDepth:(NSUInteger)depth {
     return [self itn_descriptionWithIndentation:0 depth:depth];
 }

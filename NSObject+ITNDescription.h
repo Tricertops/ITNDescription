@@ -20,6 +20,7 @@
 
 - (NSString *)itn_shortDescription;
 - (NSString *)itn_longDescription;
+- (NSString *)itn;
 
 - (NSString *)itn_descriptionWithDepth:(NSUInteger)depth;
 
